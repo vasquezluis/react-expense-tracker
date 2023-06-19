@@ -1,11 +1,22 @@
-import { FC } from 'react'
+import { FC } from "react";
+import { GlobalProvider } from "./context/GlobalState";
 
-interface AppProps {
-  
-}
+// -> Components
+import Header from "./components/Header";
+import Balance from "./components/Balance";
+import TransactionForm from "./components/TransactionForm";
+
+interface AppProps {}
 
 const App: FC<AppProps> = ({}) => {
-  return <div>Hello world</div>
-}
+  return (
+    <GlobalProvider>
+      <Header />
+      <Balance />
+      <TransactionForm />
+      <h1>Hello World</h1>
+    </GlobalProvider>
+  );
+};
 
-export default App
+export default App;
