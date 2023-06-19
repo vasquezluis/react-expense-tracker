@@ -15,6 +15,12 @@ export const useGlobalState = () => {
   return context;
 };
 
+type Transaction = {
+  id?: number;
+  description: string;
+  amount: number;
+};
+
 interface GlobalProviderProps {
   children: ReactNode;
 }
@@ -27,8 +33,21 @@ interface GlobalProviderProps {
 export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
+  /**
+   * Function to add a transaction
+   * @param transaction the transaction to add -> {id?, description, amount}
+   */
+  const addTransaction = (transaction: Transaction): void => {
+    dispatch({
+      type: "ADD_TRANSACTION",
+      payload: transaction,
+    });
+  };
+
   return (
-    <Context.Provider value={{ transaction: state.transactions }}>
+    <Context.Provider
+      value={{ transactions: state.transactions, addTransaction }}
+    >
       {children}
     </Context.Provider>
   );

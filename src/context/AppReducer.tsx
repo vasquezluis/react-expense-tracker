@@ -1,6 +1,10 @@
 import { Reducer } from "react";
 
-type Transaction = {};
+type Transaction = {
+  id?: number;
+  description: string;
+  amount: number;
+};
 
 interface State {
   transactions: Transaction[];
@@ -8,6 +12,7 @@ interface State {
 
 interface Action {
   type: string;
+  payload: Transaction;
 }
 
 /**
@@ -19,7 +24,10 @@ interface Action {
 const reducer: Reducer<State, Action> = (state, action) => {
   switch (action.type) {
     case "ADD_TRANSACTION":
-      return state;
+      return {
+        ...state,
+        transactions: [...state.transactions, action.payload],
+      };
     default:
       return state;
   }
